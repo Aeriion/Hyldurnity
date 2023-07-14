@@ -18,7 +18,7 @@ public class obj_player : MonoBehaviour
     public int crit_chance_level;
     public double crit_damage;
     public int crit_damage_level;
-    public double speed;
+    public float speed;
     public int speed_level;
     public double coin_multiplier;
     public int coin_multiplier_level;
@@ -57,8 +57,10 @@ public class obj_player : MonoBehaviour
     public double tornado_cooldown;
     private double last_tornado_time;
     public int tornado_level;
+    public Animator animator;
     void Start()
     {
+        animator = GetComponent<Animator>();
        //Initialisation des statistiques
         max_hp=100;
         current_hp = max_hp;
@@ -66,7 +68,7 @@ public class obj_player : MonoBehaviour
         pickup_range=1;
         crit_chance=0.1;
         crit_damage=1.25;
-        speed=1;
+        speed=0f;
         coin_multiplier=1;
         luck=0.05;
         regen=0.05;
@@ -86,6 +88,7 @@ public class obj_player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        animator.SetFloat("speed", speed);
         //Si la vie actuelle est pas au maximum, le joueur regen, si avec la regen il dépasse la vie maximale, il gagne rien.
         if(current_hp<max_hp)
         {
