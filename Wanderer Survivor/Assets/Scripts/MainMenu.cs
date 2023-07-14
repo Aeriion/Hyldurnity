@@ -14,6 +14,10 @@ public class MainMenu : MonoBehaviour
     public GameObject bestiaryCanvas;
     public GameObject breedingCanvas;
 
+    public GameObject buttonSoundObject; // GameObject contenant l'AudioSource
+
+    private AudioSource buttonAudioSource; // Référence à l'AudioSource
+
     private void Start()
     {
         playButton.onClick.AddListener(PlayGame);
@@ -21,6 +25,16 @@ public class MainMenu : MonoBehaviour
         bestiaryButton.onClick.AddListener(OpenBestiaryCanvas);
         breedingButton.onClick.AddListener(OpenBreedingCanvas);
         quitButton.onClick.AddListener(QuitGame);
+
+        // Récupérer l'AudioSource du GameObject
+        buttonAudioSource = buttonSoundObject.GetComponent<AudioSource>();
+
+        // Ajout de l'écouteur de clic pour jouer le son du bouton
+        playButton.onClick.AddListener(PlayButtonSound);
+        optionsButton.onClick.AddListener(PlayButtonSound);
+        bestiaryButton.onClick.AddListener(PlayButtonSound);
+        breedingButton.onClick.AddListener(PlayButtonSound);
+        quitButton.onClick.AddListener(PlayButtonSound);
     }
 
     private void PlayGame()
@@ -50,5 +64,10 @@ public class MainMenu : MonoBehaviour
         #else
             Application.Quit();
         #endif
+    }
+
+    private void PlayButtonSound()
+    {
+        buttonAudioSource.Play(); // Jouer le son du bouton
     }
 }
